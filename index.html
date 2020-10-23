@@ -11,7 +11,7 @@
       <label for="lname">Password:</label><br>
       <input type="text" id="lname" name="lname">
 
-      <form action="uber://authentication_success?token=test_token_123&parameter1=one">
+      <form id="form">
          <input type="submit" value="Login" />
      </form>
 
@@ -25,3 +25,15 @@
    </body>
 
 </html>
+
+<script type="text/javascript">
+   var currentUrlParams = new URLSearchParams(document.location.search)
+   var redirectUrl = currentUrlParams.get("redirectUrl");
+
+   var redirectWithToken = new URL(redirectUrl)
+   redirectWithToken.searchParams.set('token', 'test_token_123')
+   redirectWithToken.searchParams.set('parameter1', 'one')
+
+   var form = document.getElementById('form')
+   form.action = redirectWithToken.href
+</script>
